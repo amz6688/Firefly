@@ -383,7 +383,16 @@ html.is-page-transitioning .banner-home-text-overlay {
     gap: 0.5rem;
     font-size: 0.95rem;
     white-space: nowrap;
+    /* 浅绿色长方按钮 */
+    background: rgba(167, 243, 208, 0.85);
+    border-color: rgba(255, 255, 255, 0.4);
 }
+
+.banner-link-text:hover {
+    background: rgba(134, 239, 172, 0.95);
+    color: #14532d;
+}
+
 
 /* 移动端：按钮加宽，文字更舒展，更易点按 */
 @media (max-width: 640px) {

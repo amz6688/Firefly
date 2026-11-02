@@ -37,9 +37,9 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	 */
 	src: {
 		// 桌面背景图片
-		desktop: "/assets/images/game/bg.jpg",
+		desktop: "/assets/images/game/bg-anime-ocean.jpg",
 		// 移动背景图片
-		mobile: "/assets/images/game/bg.jpg",
+		mobile: "/assets/images/game/bg-anime-ocean.jpg",
 		// 背景视频播放地址（当前未启用视频背景）
 		// playerUrl: "/assets/videos/firefly.mp4",
 	},
