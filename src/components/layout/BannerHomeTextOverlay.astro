@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import TypewriterText from "@/components/features/TypewriterText.astro";
-import { backgroundWallpaper } from "@/config";
+import { backgroundWallpaper, siteConfig } from "@/config";
 import { encodeMailto, MAILTO_ONCLICK_SCRIPT } from "@/utils/email-utils";
 
 interface Props {
@@ -23,6 +23,10 @@ const homeTextLinksEnable = homeText?.linksEnable !== false;
                         {homeText.title}
                     </div>
                 )}
+                {/* 标题下方的站点域名 */}
+                <div class="text-white/80 text-sm md:text-base mb-2 lg:mb-3 tracking-wide">
+                    {siteConfig.site_url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                </div>
                 {homeText.subtitle && (
                     <div id="banner-subtitle" class="banner-subtitle text-white/90 leading-snug" style={{ fontSize: homeText.subtitleSize || "1.5rem" }} data-subtitles={JSON.stringify(homeText.subtitle)}>
                         {homeText.typewriter?.enable ? (

@@ -42,7 +42,7 @@ const pages = resolvePageToggles({
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "猫猫游戏库",
+	title: "猫猫游戏小站",
 
 	// 站点副标题
 	subtitle: "Steam移植手游 · 安卓单机游戏库",
@@ -52,11 +52,11 @@ export const siteConfig: SiteConfig = {
 
 	// 站点描述
 	description:
-		"猫猫游戏库。本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。",
+		"猫猫游戏小站。本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。",
 
 	// 站点关键词
 	keywords: [
-		"猫猫游戏库",
+		"猫猫游戏小站",
 		"Steam移植",
 		"安卓单机游戏",
 		"安卓掌机游戏",
@@ -91,7 +91,7 @@ export const siteConfig: SiteConfig = {
 	// 如果启用了OpenGraph图片功能，数组中需要包含png格式的favicon图标
 	favicon: [
 		{
-			// 站点图标，使用猫猫游戏库 Logo
+			// 站点图标，使用猫猫游戏小站 Logo
 			src: "/assets/images/logo.png",
 			// 可选，指定主题 'light' | 'dark'
 			// theme: "light",
@@ -115,10 +115,10 @@ export const siteConfig: SiteConfig = {
 			type: "url",
 			value: "/assets/images/logo.png",
 			valueDark: "/assets/images/logo.png",
-			alt: "猫猫游戏库",
+			alt: "猫猫游戏小站",
 		},
 		// 导航栏标题
-		title: "猫猫游戏库",
+		title: "猫猫游戏小站",
 		// 全宽导航栏，导航栏是否占满屏幕宽度
 		widthFull: true,
 		// 导航菜单对齐方式，left：左对齐，center：居中

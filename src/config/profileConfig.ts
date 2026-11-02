@@ -9,7 +9,7 @@ export const profileConfig: ProfileConfig = {
 	avatar: "/assets/images/logo.png",
 
 	// 名字
-	name: "猫猫游戏库",
+	name: "猫猫游戏小站",
 
 	// 个人签名
 	bio: "Steam移植手游 · 安卓单机游戏库，每日更新中。",

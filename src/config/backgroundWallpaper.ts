@@ -54,7 +54,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			// 是否启用主页横幅文字
 			enable: true,
 			// 主页横幅主标题
-			title: "猫猫游戏库",
+			title: "猫猫游戏小站",
 			// 主页横幅主标题字体大小
 			titleSize: "4rem",
 			// 主页横幅副标题

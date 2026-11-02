@@ -4,25 +4,36 @@ published: 2026-11-01
 description: "《米塔》是一款融合恋爱与心理恐怖要素的3D第一人称冒险游戏，Steam好评率高达98%，本次为安卓移植版本。"
 tags: [必玩榜, 恐怖, 第一人称, 恋爱冒险, 中文, 高画质]
 category: Steam移植
-image: "/assets/images/k5/covers/miside.jpg"
+image: "/assets/images/k5/games/miside/header.jpg"
 pinned: true
 ---
 
-## 游戏简介
-
-《米塔》是一款病娇题材的 3D 心理恐怖第一人称恋爱冒险游戏。玩家将在熟悉的日常与逐渐失控的幻想之间来回穿梭，在看似甜蜜的互动中感受越来越强的不安感。
-
-Steam 好评率高达 98%，本次提供安卓移植版本 v1.0。
-
 ## 游戏信息
 
-- 类型：心理恐怖 / 第一人称 / 恋爱冒险
-- 版本：v1.0
-- 平台：安卓
-- 语言：简体中文
+- **游戏语言**：中文（可选中文配音）
+- **操作方式**：触屏
+- **游戏类型**：恋爱 / 冒险 / 第一人称
+- **游戏版本**：v1.0
+- **游戏大小**：823.7MB
+- **注意事项**：无
 
-## 安装说明
+## 游戏简介
 
-下载后按照压缩包内说明安装，首次进入游戏建议在设置中适当降低画质以保证流畅度。
+《米塔》（MiSide）是一款由俄罗斯团队 AIHASTO 开发的 3D 心理恐怖恋爱冒险游戏，于 2024 年 12 月 11 日登陆 Steam。玩家扮演沉迷恋爱手游的男生，被虚拟角色米塔拉入游戏世界。起初她温柔可爱，但当玩家试图离开时，米塔会显露病娇本性，用恐怖手段阻止你逃离。游戏融合探索、解谜与日常互动，Steam 好评率高达 98%，支持简体中文。
+
+## 游戏截图
+
+![米塔游戏截图 1](/assets/images/k5/games/miside/shot-1.jpg)
+
+![米塔游戏截图 2](/assets/images/k5/games/miside/shot-2.jpg)
+
+![米塔游戏截图 3](/assets/images/k5/games/miside/shot-3.jpg)
+
+![米塔游戏截图 4](/assets/images/k5/games/miside/shot-4.jpg)
+
+## 下载地址
+
+- **夸克网盘**：[点击下载](https://pan.baidu.com/s/1rJAiPnypzASvUfI0jCvClA?pwd=2268)
+- **百度网盘**：[点击下载](https://pan.baidu.com/s/1rJAiPnypzASvUfI0jCvClA?pwd=2268)
 
 > 本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。
