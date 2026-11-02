@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { siteConfig } from "@/config/siteConfig";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import type { BannerPostMeta } from "@/utils/banner-visibility-utils";
@@ -18,6 +19,9 @@ const {
 	bannerDescriptionWidth,
 	bannerPostMeta,
 } = Astro.props;
+
+// 横幅信息展示站点域名（替代原阅读时长）
+const siteHost = siteConfig.site_url.replace(/^https?:\/\//, "").replace(/\/+$/, "");
 ---
 {showBannerPostMeta && bannerPostMeta && (
     <div class="banner-post-meta-overlay absolute inset-0 z-20 hidden lg:flex items-center justify-center pointer-events-none">
@@ -72,10 +76,8 @@ const {
                         )}
                         {typeof bannerPostMeta.minutes === "number" && (
                             <span class="inline-flex items-center gap-1.5">
-                                <Icon name="material-symbols:schedule-outline-rounded" class="text-[1.05em]" />
-                                <span>
-                                    {bannerPostMeta.minutes} {i18n(bannerPostMeta.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)} · {i18n(I18nKey.readTime)}
-                                </span>
+                                <Icon name="material-symbols:public" class="text-[1.05em]" />
+                                <span>{siteHost}</span>
                             </span>
                         )}
                     </div>

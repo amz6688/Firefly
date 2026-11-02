@@ -54,6 +54,9 @@ const showSponsorButton =
 	sponsorConfig.showButtonInPost && siteConfig.pages.sponsor;
 const showPostActionCard = siteConfig.post.share || showSponsorButton;
 
+// 文章页展示站点域名（替代原阅读时长）
+const siteHost = siteConfig.site_url.replace(/^https?:\/\//, "").replace(/\/+$/, "");
+
 // 全站统一的文章免责声明，自动显示在正文下方，无需在文章中手写
 const postDisclaimer =
 	"声明：本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。如若本站内容侵犯了原著者的合法权益，可联系我们进行处理。";
@@ -292,11 +295,8 @@ const seriesData = await getSeriesPosts(entry);
                 </span>
               </div>
               <div class="flex items-center gap-1 whitespace-nowrap">
-                <Icon name="material-symbols:schedule-outline-rounded" class="text-base" />
-                <span>
-                  {remarkPluginFrontmatter.minutes}
-                  {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
-                </span>
+                <Icon name="material-symbols:public" class="text-base" />
+                <span>{siteHost}</span>
               </div>
               {entry.data.password && (
                 <div class="flex items-center gap-1 whitespace-nowrap">
@@ -350,19 +350,9 @@ const seriesData = await getSeriesPosts(entry);
               <div
                 class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
               >
-                <Icon name="material-symbols:schedule-outline-rounded" />
+                <Icon name="material-symbols:public" />
               </div>
-              <div class="text-sm">
-                {remarkPluginFrontmatter.minutes}
-                {
-                  " " +
-                    i18n(
-                      remarkPluginFrontmatter.minutes === 1
-                        ? I18nKey.minuteCount
-                        : I18nKey.minutesCount
-                    )
-                }
-              </div>
+              <div class="text-sm">{siteHost}</div>
             </div>
             {entry.data.password && (
               <div class="flex flex-row items-center">

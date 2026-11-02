@@ -1,8 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
+import { siteConfig } from "@/config/siteConfig";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
+
+const siteHost = siteConfig.site_url.replace(/^https?:\/\//, "").replace(/\/+$/, "");
 
 export interface Props {
 	published: Date;
@@ -71,12 +74,10 @@ const iconClass = "text-sm";
     <div class="flex items-center">
       {showIcons && (
         <div class={iconWrapperClass}>
-          <Icon name="material-symbols:schedule-outline-rounded" class={iconClass} />
+          <Icon name="material-symbols:public" class={iconClass} />
         </div>
       )}
-      <span class={textClass}>
-        {minutes} {i18n(minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
-      </span>
+      <span class={textClass}>{siteHost}</span>
     </div>
   )}
 </div>
