@@ -48,11 +48,11 @@ export const siteConfig: SiteConfig = {
 	subtitle: "Steam移植手游 · 安卓单机游戏库",
 
 	// 站点 URL
-	site_url: "https://k5game.cn",
+	site_url: "https://acegame.cc.cd",
 
 	// 站点描述
 	description:
-		"猫猫游戏库（Steam移植手游+安卓单机游戏+安卓掌机游戏+手机手柄专用游戏库）。本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。",
+		"猫猫游戏库。本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。",
 
 	// 站点关键词
 	keywords: [

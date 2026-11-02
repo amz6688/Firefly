@@ -347,14 +347,15 @@ html.is-page-transitioning .banner-home-text-overlay {
 /* 首页横幅标题下方的链接图标行（半透明圆按钮） */
 .banner-links {
     animation: banner-fadeInUp 0.3s ease-out 0.5s both;
+    flex-wrap: wrap;
 }
 
 .banner-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.9rem;
+    height: 2.9rem;
     border-radius: 9999px;
     color: rgba(255, 255, 255, 0.92);
     background: rgba(255, 255, 255, 0.14);
@@ -377,9 +378,29 @@ html.is-page-transitioning .banner-home-text-overlay {
 
 .banner-link-text {
     width: auto;
+    min-width: 9.5rem;
     padding: 0 1rem;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+/* 移动端：按钮加宽，文字更舒展，更易点按 */
+@media (max-width: 640px) {
+    .banner-links {
+        gap: 0.6rem;
+    }
+
+    .banner-link {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .banner-link-text {
+        min-width: 8.5rem;
+        padding: 0 0.85rem;
+        font-size: 0.95rem;
+    }
 }
 
 /* banner 首页标题下有链接时，主内容容器会拦截点击；让容器不拦截、网格内容恢复可交互。
