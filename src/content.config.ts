@@ -11,7 +11,7 @@ type PostData = {
 	description: string;
 	image: string;
 	tags: string[];
-	category: string | null;
+	category: string | string[] | null;
 	lang: string;
 	pinned: boolean;
 	author: string;
@@ -69,7 +69,11 @@ const postsCollection: ContentCollection<PostData> = defineCollection({
 		description: z.string().optional().default(""),
 		image: z.string().optional().default(""),
 		tags: z.array(z.string()).optional().default([]),
-		category: z.string().optional().nullable().default(""),
+		category: z
+			.union([z.string(), z.array(z.string())])
+			.optional()
+			.nullable()
+			.default(""),
 		lang: z.string().optional().default(""),
 		pinned: z.boolean().optional().default(false),
 		author: z.string().optional().default(""),

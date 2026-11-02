@@ -386,8 +386,13 @@ function createWikiLinkCard(parsed, context) {
 			? meta.data.description.trim()
 			: "";
 	const published = formatPublishedDate(meta.data.published);
-	const category =
-		typeof meta.data.category === "string" ? meta.data.category.trim() : "";
+	const category = Array.isArray(meta.data.category)
+		? meta.data.category
+				.filter((name) => typeof name === "string" && name.trim())
+				.join(" / ")
+		: typeof meta.data.category === "string"
+			? meta.data.category.trim()
+			: "";
 	const tags = Array.isArray(meta.data.tags)
 		? meta.data.tags.filter((tag) => typeof tag === "string" && tag)
 		: [];

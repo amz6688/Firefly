@@ -7,6 +7,7 @@ import PostMetadata from "@/components/layout/PostMeta.astro";
 import PostStats from "@/components/layout/PostStats.astro";
 import { siteConfig } from "@/config";
 import { sectionConfig } from "@/config/sectionConfig";
+import { normalizeCategories } from "@/utils/category-utils";
 import { getApiUrlList, processCoverImageSync } from "@/utils/image-utils";
 import { getFileDirFromPath, getTagUrl } from "@/utils/url-utils";
 
@@ -18,7 +19,7 @@ interface Props {
 	published: Date;
 	updated?: Date;
 	tags: string[];
-	category: string | null;
+	category: string | string[] | null;
 	image: string;
 	description: string;
 	draft: boolean;
@@ -97,8 +98,9 @@ const shouldClampDescription = descriptionLines > 0;
 
 // 底部标签：超出 tagCount 的部分折叠成一个 +N 提示，tagCount 为 0 时不限制；
 // 已在卡片分类行展示的分类名/板块标签不重复出现
+const categoryNames = normalizeCategories(category);
 const tagList = (tags ?? []).filter(
-	(tag) => tag !== category && !sectionTagExtras.includes(tag),
+	(tag) => !categoryNames.includes(tag) && !sectionTagExtras.includes(tag),
 );
 const bottomTags = metaTagCount > 0 ? tagList.slice(0, metaTagCount) : tagList;
 const hiddenTags = tagList.slice(bottomTags.length);

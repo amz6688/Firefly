@@ -18,6 +18,7 @@ import {
 	siteConfig,
 } from "@/config";
 import { getBannerVisibilityState } from "@/utils/banner-visibility-utils";
+import { normalizeCategories } from "@/utils/category-utils";
 import { getBackgroundImages, isHomePage } from "@/utils/layout-utils";
 import { resolveNavMenuLinks } from "@/utils/nav-menu-utils";
 import { getEffectiveSidebarState } from "@/utils/sidebar-effective-utils";
@@ -35,7 +36,7 @@ interface Props {
 	ogImageWidth?: number;
 	ogImageHeight?: number;
 	ogImageAlt?: string;
-	postCategory?: string;
+	postCategory?: string | string[];
 	headings?: MarkdownHeading[];
 	encrypted?: boolean;
 	bannerPostMeta?: {
@@ -132,7 +133,9 @@ const {
                 <main
                     id="swup-container"
                     class="transition-main"
-                    data-current-post-category={postCategory || ""}
+                    data-current-post-category={JSON.stringify(
+                        normalizeCategories(postCategory),
+                    )}
                 >
                 {/* 为每个页面提供一个隐藏的h1标题，用于SEO和可访问性 */}
                 <h1 class="sr-only">{heading || title}</h1>

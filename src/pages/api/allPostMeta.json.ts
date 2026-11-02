@@ -1,3 +1,4 @@
+import { normalizeCategories } from "@/utils/category-utils";
 import { getSortedPosts } from "@/utils/content-utils";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
 
@@ -11,7 +12,7 @@ export async function GET(): Promise<Response> {
 			description: post.data.description,
 			published: post.data.published.getTime(),
 			publishedDate: formatDateToYYYYMMDD(post.data.published),
-			category: post.data.category || "",
+			category: normalizeCategories(post.data.category),
 			password: !!post.data.password,
 		}))
 		// 日历按纯日期排序，忽略置顶

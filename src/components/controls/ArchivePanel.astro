@@ -2,6 +2,7 @@
 import { siteConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
+import { normalizeCategories } from "@/utils/category-utils";
 import { getSortedPostsList } from "@/utils/content-utils";
 import { isDateOnly } from "@/utils/date-utils";
 import { getPostUrlBySlug, url } from "@/utils/url-utils";
@@ -130,7 +131,9 @@ const foldOnFilter = collapseAllButFirst;
               aria-label={post.data.title}
               class="archive-post group btn-plain block! h-10 w-full rounded-lg hover:text-[initial]"
               data-tags={JSON.stringify(post.data.tags || [])}
-              data-category={post.data.category || ""}
+              data-category={JSON.stringify(
+                normalizeCategories(post.data.category),
+              )}
             >
               <div class="flex flex-row justify-start items-center h-full">
                 {/* date */}
@@ -151,12 +154,12 @@ const foldOnFilter = collapseAllButFirst;
                 <div class="w-[70%] md:max-w-[65%] md:w-[65%] text-left font-bold
                             group-hover:translate-x-1 transition-all group-hover:text-(--primary)
                             text-75 pr-8 whitespace-nowrap text-ellipsis overflow-hidden flex items-center gap-2">
-                  {post.data.category && (
+                  {normalizeCategories(post.data.category).length > 0 && (
                     <span class="shrink-0 inline-block text-xs font-medium px-1.5 py-0.5 rounded-sm
                                  bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[oklch(0.25_0.025_var(--hue))]
                                  text-(--primary) group-hover:bg-(--primary) group-hover:text-white!
                                  transition-colors">
-                      {post.data.category}
+                      {normalizeCategories(post.data.category).join(" / ")}
                     </span>
                   )}
                   <span class="truncate">{post.data.title}</span>
@@ -229,17 +232,26 @@ const foldOnFilter = collapseAllButFirst;
           } catch {
             rowTags = [];
           }
-          const rowCategory = row.dataset.category || "";
+          let rowCategories = [];
+          try {
+            rowCategories = JSON.parse(row.dataset.category || "[]");
+          } catch {
+            rowCategories = [];
+          }
+          if (!Array.isArray(rowCategories)) rowCategories = [];
 
           let match = true;
           if (tags.length > 0) {
             match = match && rowTags.some((t) => tags.includes(t));
           }
           if (categories.length > 0) {
-            match = match && !!rowCategory && categories.includes(rowCategory);
+            match =
+              match &&
+              rowCategories.length > 0 &&
+              rowCategories.some((c) => categories.includes(c));
           }
           if (uncategorized) {
-            match = match && !rowCategory;
+            match = match && rowCategories.length === 0;
           }
 
           row.hidden = !match;

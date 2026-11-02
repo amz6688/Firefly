@@ -1,11 +1,12 @@
 ---
 import type { SiteSection } from "@/config/sectionConfig";
 import { sectionConfig } from "@/config/sectionConfig";
+import { normalizeCategories } from "@/utils/category-utils";
 import { getSortedPostsList } from "@/utils/content-utils";
 import { url } from "@/utils/url-utils";
 
 interface Props {
-	currentPostCategory?: string;
+	currentPostCategory?: string | string[];
 }
 
 const { currentPostCategory } = Astro.props as Props;
@@ -18,7 +19,11 @@ const sections = sectionConfig.map((section: SiteSection) => {
 	if (section.kind === "latest") {
 		count = posts.length;
 	} else if (section.kind === "category") {
-		count = posts.filter((post) => post.data.category === section.value).length;
+		count = posts.filter((post) =>
+			normalizeCategories(post.data.category).includes(
+				section.value as string,
+			),
+		).length;
 	} else if (section.kind === "tag") {
 		count = posts.filter((post) =>
 			(post.data.tags ?? []).includes(section.value as string),
@@ -48,14 +53,17 @@ if (currentPath === "" || currentPath === "/") {
 	activeSlug = currentPath.slice("/sections/".length);
 }
 
-const postCategory = (currentPostCategory || "").trim();
-const softSlug = postCategory ? categoryToSection[postCategory] : undefined;
+const postCategories = normalizeCategories(currentPostCategory);
+// 一篇文章可属于多个板块：收集所有对应板块 slug
+const softSlugs = postCategories
+	.map((name) => categoryToSection[name])
+	.filter((slug): slug is string => Boolean(slug));
 ---
 
 <div
   class="card-base category-bar p-3 onload-animation"
   id="category-bar"
-  data-current-post-category={postCategory}
+  data-current-post-category={JSON.stringify(postCategories)}
 >
   <div class="category-scroll flex gap-2 overflow-x-auto">
     {
@@ -68,7 +76,7 @@ const softSlug = postCategory ? categoryToSection[postCategory] : undefined;
           data-category-name={section.kind === "latest" ? "" : section.value}
           data-active={section.slug === activeSlug ? "" : undefined}
           data-soft-active={
-            softSlug && section.slug === softSlug ? "" : undefined
+            softSlugs.includes(section.slug) ? "" : undefined
           }
         >
           {section.name}
@@ -100,19 +108,33 @@ const softSlug = postCategory ? categoryToSection[postCategory] : undefined;
     return "__none__";
   }
 
+  // 兼容 JSON 数组（多分类）与旧的单个分类字符串
+  function parseCategories(raw) {
+    if (!raw) return [];
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed.map((item) => String(item).trim()).filter(Boolean);
+      }
+    } catch {
+      // 旧数据不是 JSON，按单个分类处理
+    }
+    return [String(raw).trim()].filter(Boolean);
+  }
+
   function syncCategoryBar() {
     const bar = document.getElementById("category-bar");
     if (!bar) return;
 
     const swupContainer = document.getElementById("swup-container");
-    const postCategory = (
+    const postCategories = parseCategories(
       swupContainer?.getAttribute("data-current-post-category") ||
-      bar.getAttribute("data-current-post-category") ||
-      ""
-    ).trim();
-    const softSlug = postCategory
-      ? categoryToSection[postCategory] || ""
-      : "";
+        bar.getAttribute("data-current-post-category") ||
+        "",
+    );
+    const softSlugs = postCategories
+      .map((name) => categoryToSection[name])
+      .filter(Boolean);
     const activeSlug = getActiveSectionSlug();
 
     bar.querySelectorAll(".category-pill").forEach((pill) => {
@@ -121,7 +143,7 @@ const softSlug = postCategory ? categoryToSection[postCategory] : undefined;
       const slug = pill.getAttribute("data-section-slug");
       if (slug === activeSlug) {
         pill.setAttribute("data-active", "");
-      } else if (softSlug && slug === softSlug) {
+      } else if (softSlugs.includes(slug)) {
         pill.setAttribute("data-soft-active", "");
       }
     });

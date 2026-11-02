@@ -5,6 +5,7 @@ import PostPage from "@/components/layout/PostPage.astro";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { sectionConfig } from "@/config/sectionConfig";
 import { getSortedPosts } from "@/utils/content-utils";
+import { normalizeCategories } from "@/utils/category-utils";
 
 export const getStaticPaths = (async () => {
 	return sectionConfig
@@ -23,7 +24,10 @@ const { section } = Astro.props as Props;
 
 const allPosts = await getSortedPosts();
 const posts = allPosts.filter((post) => {
-	if (section.kind === "category") return post.data.category === section.value;
+	if (section.kind === "category")
+		return normalizeCategories(post.data.category).includes(
+			section.value as string,
+		);
 	if (section.kind === "tag")
 		return (post.data.tags ?? []).includes(section.value as string);
 	return false;

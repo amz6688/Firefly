@@ -34,6 +34,7 @@ import { profileConfig } from "@/config/profileConfig";
 import { sectionConfig } from "@/config/sectionConfig";
 import { siteConfig } from "@/config/siteConfig";
 import { sponsorConfig } from "@/config/sponsorConfig";
+import { normalizeCategories } from "@/utils/category-utils";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
 import { getApiUrlList, processCoverImageSync } from "@/utils/image-utils";
 import {
@@ -52,6 +53,10 @@ import { url } from "@/utils/url-utils";
 const showSponsorButton =
 	sponsorConfig.showButtonInPost && siteConfig.pages.sponsor;
 const showPostActionCard = siteConfig.post.share || showSponsorButton;
+
+// 全站统一的文章免责声明，自动显示在正文下方，无需在文章中手写
+const postDisclaimer =
+	"声明：本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。如若本站内容侵犯了原著者的合法权益，可联系我们进行处理。";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
@@ -143,17 +148,21 @@ const publisher = buildPublisherEntity({
 	logo: await getSiteLogo(),
 });
 
+const postCategories = normalizeCategories(entry.data.category);
+// 面包屑只取第一个分类，避免层级过长
+const primaryCategoryName = postCategories[0] ?? "";
+
 const breadcrumbItems = [
 	{
 		name: i18n(I18nKey.home),
 		url: toAbsoluteUrl("/", siteConfig.site_url) ?? siteConfig.site_url,
 	},
 ];
-if (entry.data.category) {
+if (primaryCategoryName) {
 	breadcrumbItems.push({
-		name: entry.data.category,
+		name: primaryCategoryName,
 		url:
-			toAbsoluteUrl(getCategoryUrl(entry.data.category), siteConfig.site_url) ??
+			toAbsoluteUrl(getCategoryUrl(primaryCategoryName), siteConfig.site_url) ??
 			siteConfig.site_url,
 	});
 }
@@ -183,7 +192,12 @@ const jsonLd = {
 					}
 				: {}), // 优化：有封面才输出，避免 image:null
 			datePublished: entry.data.published.toISOString(),
-			...(entry.data.category ? { articleSection: entry.data.category } : {}),
+			...(postCategories.length
+				? {
+						articleSection:
+							postCategories.length === 1 ? postCategories[0] : postCategories,
+					}
+				: {}),
 			...(remarkPluginFrontmatter.words
 				? { wordCount: remarkPluginFrontmatter.words }
 				: {}),
@@ -213,7 +227,7 @@ const seriesData = await getSeriesPosts(entry);
   setOGTypeArticle={true}
   postSlug={entry.id}
   postCoverImage={coverImage?.url}
-  postCategory={entry.data.category || undefined}
+  postCategory={postCategories}
   ogImageWidth={coverImage?.width}
   ogImageHeight={coverImage?.height}
   ogImageAlt={entry.data.title}
@@ -230,9 +244,9 @@ const seriesData = await getSeriesPosts(entry);
     <meta slot="head" property="article:modified_time" content={entry.data.updated.toISOString()} />
   )}
   <meta slot="head" property="article:author" content={entry.data.author || profileConfig.name} />
-  {entry.data.category && (
-    <meta slot="head" property="article:section" content={entry.data.category} />
-  )}
+  {postCategories.map((categoryName) => (
+    <meta slot="head" property="article:section" content={categoryName} />
+  ))}
   {entry.data.tags.map((tag) => (
     <meta slot="head" property="article:tag" content={tag.trim()} />
   ))}
@@ -305,7 +319,7 @@ const seriesData = await getSeriesPosts(entry);
                 className="gap-x-4 gap-y-1"
                 published={entry.data.published}
                 updated={entry.data.updated}
-                category={entry.data.category || undefined}
+                category={postCategories}
                 categoryExtras={sectionTagExtras}
                 tags={entry.data.tags}
                 id={entry.id}
@@ -395,7 +409,7 @@ const seriesData = await getSeriesPosts(entry);
               published={entry.data.published}
               updated={entry.data.updated}
               tags={entry.data.tags}
-              category={entry.data.category || undefined}
+              category={postCategories}
               categoryExtras={sectionTagExtras}
               id={entry.id}
             />
@@ -440,6 +454,10 @@ const seriesData = await getSeriesPosts(entry);
           <Markdown class="mb-6 markdown-content onload-animation">
             <Content />
           </Markdown>
+
+          <div class="mb-6 rounded-xl border border-dashed border-(--line-divider) bg-(--license-block-bg) px-4 py-3 text-sm leading-6 text-black/60 dark:text-white/60">
+            {postDisclaimer}
+          </div>
 
           {/* 打赏按钮 & 分享按钮 */}
           {
@@ -530,6 +548,10 @@ const seriesData = await getSeriesPosts(entry);
           <Markdown class="mb-6 markdown-content onload-animation">
             <Content />
           </Markdown>
+
+          <div class="mb-6 rounded-xl border border-dashed border-(--line-divider) bg-(--license-block-bg) px-4 py-3 text-sm leading-6 text-black/60 dark:text-white/60">
+            {postDisclaimer}
+          </div>
 
           {/* 打赏按钮 & 分享按钮 */}
           {

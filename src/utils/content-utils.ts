@@ -2,6 +2,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils";
+import { normalizeCategories } from "@/utils/category-utils";
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -188,19 +189,17 @@ export async function getCategoryList(): Promise<Category[]> {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 	const count: { [key: string]: number } = {};
-	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
-		if (!post.data.category) {
+	allBlogPosts.forEach((post) => {
+		const categoryNames = normalizeCategories(post.data.category);
+		if (categoryNames.length === 0) {
 			const ucKey = i18n(I18nKey.uncategorized);
 			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
 			return;
 		}
 
-		const categoryName =
-			typeof post.data.category === "string"
-				? post.data.category.trim()
-				: String(post.data.category).trim();
-
-		count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
+		for (const categoryName of categoryNames) {
+			count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
+		}
 	});
 
 	const lst = Object.keys(count).sort((a, b) => {
@@ -271,7 +270,9 @@ export async function getRelatedPosts(
 
 	const currentTags = new Set(currentPost.data.tags || []);
 	const currentTokens = tokenizeTitle(currentPost.data.title);
-	const currentCategory = currentPost.data.category || "";
+	const currentCategory = new Set(
+		normalizeCategories(currentPost.data.category),
+	);
 	const now = Date.now();
 
 	const scored = candidates.map((post) => {
@@ -292,11 +293,12 @@ export async function getRelatedPosts(
 			30 * Math.exp((-Math.LN2 * daysSincePublished) / 180);
 
 		// categoryBonus (0 or 10)
-		const postCategory = post.data.category || "";
-		const categoryBonus =
-			currentCategory && postCategory && currentCategory === postCategory
-				? 10
-				: 0;
+		const postCategories = normalizeCategories(post.data.category);
+		const categoryBonus = postCategories.some((name) =>
+			currentCategory.has(name),
+		)
+			? 10
+			: 0;
 
 		const totalScore =
 			tagMatchScore + titleSimilarityScore + timeFreshnessScore + categoryBonus;

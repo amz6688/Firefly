@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import { siteConfig } from "@/config/siteConfig";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
+import { normalizeCategories } from "@/utils/category-utils";
 import type { PostForList } from "@/utils/content-utils";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
 import { getPostUrlBySlug, url } from "@/utils/url-utils";
@@ -63,9 +64,9 @@ const noRandomPostsText = i18n(I18nKey.noRandomPosts);
               {post.data.title}
             </div>
             <div class="flex items-center gap-1.5 text-xs text-black/30 dark:text-white/30 transition mt-0.5">
-              {post.data.category && (
+              {normalizeCategories(post.data.category).length > 0 && (
                 <span class="shrink-0 px-1.5 py-0.5 rounded-sm bg-black/5 dark:bg-white/10 text-black/40 dark:text-white/40">
-                  {post.data.category}
+                  {normalizeCategories(post.data.category).join(" / ")}
                 </span>
               )}
               <span class="truncate">{post.data.description || formatDateToYYYYMMDD(post.data.published)}</span>
@@ -196,10 +197,13 @@ function renderRandomPosts() {
       var meta = document.createElement('div');
       meta.className = 'flex items-center gap-1.5 text-xs text-black/30 dark:text-white/30 transition mt-0.5';
 
-      if (post.category) {
+      var categoryText = Array.isArray(post.category)
+        ? post.category.join(' / ')
+        : post.category;
+      if (categoryText) {
         var cat = document.createElement('span');
         cat.className = 'shrink-0 px-1.5 py-0.5 rounded-sm bg-black/5 dark:bg-white/10 text-black/40 dark:text-white/40';
-        cat.textContent = post.category;
+        cat.textContent = categoryText;
         meta.appendChild(cat);
       }
 
