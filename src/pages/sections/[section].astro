@@ -1,0 +1,41 @@
+---
+import type { GetStaticPaths } from "astro";
+import type { SiteSection } from "@/config/sectionConfig";
+import PostPage from "@/components/layout/PostPage.astro";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { sectionConfig } from "@/config/sectionConfig";
+import { getSortedPosts } from "@/utils/content-utils";
+
+export const getStaticPaths = (async () => {
+	return sectionConfig
+		.filter((section) => section.slug)
+		.map((section) => ({
+			params: { section: section.slug },
+			props: { section },
+		}));
+}) satisfies GetStaticPaths;
+
+interface Props {
+	section: SiteSection;
+}
+
+const { section } = Astro.props as Props;
+
+const allPosts = await getSortedPosts();
+const posts = allPosts.filter((post) => {
+	if (section.kind === "category") return post.data.category === section.value;
+	if (section.kind === "tag")
+		return (post.data.tags ?? []).includes(section.value as string);
+	return false;
+});
+---
+
+<MainGridLayout title={section.name} heading={section.name}>
+  {
+    posts.length > 0 ? (
+      <PostPage page={{ data: posts }} />
+    ) : (
+      <div class="card-base p-8 text-center text-50">该板块暂无内容</div>
+    )
+  }
+</MainGridLayout>

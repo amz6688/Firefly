@@ -11,20 +11,20 @@ const pages = resolvePageToggles({
 	// ── 社交 (Social) ──────────────────────────────────
 
 	// 友链页面开关
-	friends: true,
+	friends: false,
 	// 留言板页面开关，需要配置评论系统
-	guestbook: true,
+	guestbook: false,
 
 	// ── 我的 (My) ──────────────────────────────────
 
 	// 动态页面开关
-	dynamic: true,
+	dynamic: false,
 	// 项目展示页开关
-	projects: true,
+	projects: false,
 	// 相册页面开关
-	gallery: true,
+	gallery: false,
 	// 书签导航页面开关
-	booknav: true,
+	booknav: false,
 	// 哔哩哔哩追番页面开关
 	bilibili: false,
 	// 番组计划页面开关
@@ -37,40 +37,41 @@ const pages = resolvePageToggles({
 	// ── 关于 (About) ──────────────────────────────────
 
 	// 打赏页面开关
-	sponsor: true,
+	sponsor: false,
 });
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Firefly",
+	title: "猫猫游戏库",
 
 	// 站点副标题
-	subtitle: "Demo site",
+	subtitle: "Steam移植手游 · 安卓单机游戏库",
 
 	// 站点 URL
-	site_url: "https://firefly.cuteleaf.cn",
+	site_url: "https://k5game.cn",
 
 	// 站点描述
 	description:
-		"Firefly 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。",
+		"猫猫游戏库（Steam移植手游+安卓单机游戏+安卓掌机游戏+手机手柄专用游戏库）。本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。",
 
 	// 站点关键词
 	keywords: [
-		"Firefly",
-		"Fuwari",
-		"Astro",
-		"ACGN",
-		"博客",
-		"技术博客",
-		"静态博客",
+		"猫猫游戏库",
+		"Steam移植",
+		"安卓单机游戏",
+		"安卓掌机游戏",
+		"手游",
+		"手柄游戏",
+		"游戏下载",
 	],
 
 	// 主题色
 	themeColor: {
 		// 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-		hue: 165,
+		// K5游戏库主色为橙红色 #FF5722，对应色相约 14
+		hue: 14,
 		// 默认模式："light" 亮色，"dark" 暗色，"system" 跟随系统
-		defaultMode: "system",
+		defaultMode: "light",
 	},
 
 	// 页面整体宽度（单位：rem）
@@ -81,7 +82,7 @@ export const siteConfig: SiteConfig = {
 	// 网站Card样式配置
 	card: {
 		// 是否开启卡片边框和阴影，开启后让网站更有立体感
-		border: false,
+		border: true,
 		// 是否让卡片风格跟随主题色相
 		followTheme: false,
 	},
@@ -90,8 +91,8 @@ export const siteConfig: SiteConfig = {
 	// 如果启用了OpenGraph图片功能，数组中需要包含png格式的favicon图标
 	favicon: [
 		{
-			// 图标文件路径
-			src: "/favicon/firefly-32.png",
+			// 站点图标，使用猫猫游戏库 Logo
+			src: "/assets/images/logo.png",
 			// 可选，指定主题 'light' | 'dark'
 			// theme: "light",
 			// 可选，图标大小
@@ -111,15 +112,15 @@ export const siteConfig: SiteConfig = {
 		// 例如: { type: "image", value: "assets/images/logo.png", valueDark: "assets/images/logo-dark.png", alt: "Logo" }
 		// 使用 Astro 图标库时不需要设置 valueDark，图标会自动跟随主题亮暗色切换
 		logo: {
-			type: "image",
-			value: "assets/images/logo/firefly-light.png",
-			valueDark: "assets/images/logo/firefly-dark.png",
-			alt: "🍀",
+			type: "url",
+			value: "/assets/images/logo.png",
+			valueDark: "/assets/images/logo.png",
+			alt: "猫猫游戏库",
 		},
 		// 导航栏标题
-		title: "Firefly Blog",
+		title: "猫猫游戏库",
 		// 全宽导航栏，导航栏是否占满屏幕宽度
-		widthFull: false,
+		widthFull: true,
 		// 导航菜单对齐方式，left：左对齐，center：居中
 		menuAlign: "center",
 		// 导航栏图标和标题是否跟随主题色
@@ -128,11 +129,11 @@ export const siteConfig: SiteConfig = {
 		// "static"：不固定，随页面滚动消失
 		// "fixed"：固定在顶部常显
 		// "dynamic"：固定在顶部，下滑隐藏、轻微上滑显示
-		navbarMode: "dynamic",
+		navbarMode: "fixed",
 	},
 
 	// 站点开始日期，用于统计运行天数
-	siteStartDate: "2025-01-01",
+	siteStartDate: "2026-04-03",
 
 	// 站点时区（IANA 时区字符串），用于格式化bangumi、rss里的构建日期时间等等..
 	// 示例："Asia/Shanghai", "UTC", 如果为空，则按照构建服务器的时区进行时区转换
@@ -152,7 +153,7 @@ export const siteConfig: SiteConfig = {
 	// "pill"：胶囊，主题色底圆角
 	// "pill-gray"：胶囊，中性灰底圆角
 	// "rectangle"：矩形，主题色底小圆角
-	tagStyle: "pill",
+	tagStyle: "rectangle",
 
 	// 归档页是否折叠非最新年份文章，禁用后默认展开全部年份
 	foldArticle: true,
@@ -160,7 +161,7 @@ export const siteConfig: SiteConfig = {
 	// ── 文章列表布局配置 ──────────────────────────────────
 	postListLayout: {
 		// 默认布局模式："list" 列表模式（单列布局），"grid" 网格模式（多列布局）
-		defaultMode: "list",
+		defaultMode: "grid",
 		// 移动端默认布局模式，不设置则跟随 defaultMode
 		mobileDefaultMode: "grid",
 		// 列表模式下封面图显示在哪一侧："right" 右侧，"left" 左侧
@@ -208,11 +209,12 @@ export const siteConfig: SiteConfig = {
 			// 是否开启瀑布流布局，同时有封面图和无封面图的混合文章推荐开启
 			masonry: false,
 			// 网格模式卡片最小宽度(px)，浏览器根据容器宽度自动计算列数
+			// K5游戏库首页为双列卡片，320px 可保证桌面端稳定显示两列
 			columnWidth: 320,
 			// 网格模式封面是否撑满卡片贴边
 			// true：封面顶到卡片左右和上边缘，只有上面两角是圆角
 			// false：封面按卡片内边距内缩，上、左、右留出间距，四角都是圆角
-			coverFullWidth: false,
+			coverFullWidth: true,
 		},
 	},
 
@@ -233,7 +235,7 @@ export const siteConfig: SiteConfig = {
 			enablePythonMarkdownAdmonitions: false,
 		},
 		// 文章页底部的"上次编辑时间"卡片开关
-		showLastModified: true,
+		showLastModified: false,
 		// 文章过期阈值（天数），超过此天数才显示"上次编辑"卡片
 		outdatedThreshold: 30,
 		// 是否显示文章页的分享按钮
@@ -245,7 +247,7 @@ export const siteConfig: SiteConfig = {
 		// 是否显示随机文章推荐
 		randomPosts: true,
 		// OpenGraph图片功能，注意开启后要渲染很长时间，不建议本地调试的时候开启
-		generateOgImages: true,
+		generateOgImages: false,
 		// 沉浸阅读配置：电脑端文章详情页右下角按钮，进入后只留文章卡片+左侧目录
 		immersiveReading: {
 			// 总开关：false 则不显示按钮

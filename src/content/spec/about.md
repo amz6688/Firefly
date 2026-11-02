@@ -1,27 +1,20 @@
-# 关于我 / About Me
+# 关于 猫猫游戏库
 
-你好！我是 **夏叶** ，一个在数字世界中默默无闻的一片叶子。
+欢迎来到 **猫猫游戏库**（Steam移植手游 + 安卓单机游戏 + 安卓掌机游戏 + 手机手柄专用游戏库），每日更新中。
 
-## 🛠️ 关于本站
+## 站点内容
 
-这个网站使用 **Astro** 框架构建，采用了 [Firefly](https://github.com/CuteLeaf/Firefly) 模板，Firefly 是基于 [Fuwari](https://github.com/saicaca/fuwari) 的二次开发。
+- **Steam移植**：把 Steam 上的热门单机游戏移植到安卓设备。
+- **安卓原生**：原生支持安卓平台的高质量单机游戏。
+- **手柄专区**：针对手机手柄优化、支持手柄操作的游戏。
+- **中文专区**：已支持简体中文的游戏资源。
+- **必玩榜**：编辑整理的高口碑必玩作品。
 
-**Firefly** 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。
+## 免责声明
 
+本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。如若本站内容侵犯了原著者的合法权益，可联系我们进行处理。
 
-**🖥️在线预览： [Firefly - Demo site](https://firefly.cuteleaf.cn/)**
+## 联系我们
 
-**📝Firefly使用文档： [https://docs-firefly.cuteleaf.cn](https://docs-firefly.cuteleaf.cn/)**
-
-**⭐Firefly开源地址：[https://github.com/CuteLeaf/Firefly](https://github.com/CuteLeaf/Firefly)** 
-
-**⭐Fuwari开源地址：[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)**
-
-::github{repo="CuteLeaf/Firefly"}
-
-::github{repo="saicaca/fuwari"}
-
----
-
-*感谢你的来访！希望在这里能找到对你有用的内容！*
-
+- B站：[K说数码游戏推荐](https://space.bilibili.com/3546582911813824)
+- 在线游戏库表格：[夸克网盘入口](https://pan.quark.cn/s/42213385090b)
