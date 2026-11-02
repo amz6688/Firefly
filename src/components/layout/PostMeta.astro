@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { commentConfig } from "@/config";
+import { sectionConfig } from "@/config/sectionConfig";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
@@ -10,6 +11,8 @@ export interface Props {
 	published: Date;
 	updated?: Date;
 	category?: string;
+	/** 与分类同一行展示的板块标签（如「必玩榜」），仅用于展示，链接指向标签筛选 */
+	categoryExtras?: string[];
 	tags?: string[];
 	hideUpdateDate?: boolean;
 	hideTagsForMobile?: boolean;
@@ -35,6 +38,7 @@ const {
 	published,
 	updated,
 	category,
+	categoryExtras,
 	tags,
 	hideUpdateDate,
 	hideTagsForMobile,
@@ -57,8 +61,24 @@ const {
 } = Astro.props;
 
 const path = customPath || (id ? `/posts/${id}` : "");
+
+// 分类行中的条目（文章分类 + 板块标签）按首页板块顺序排列
+const sectionOrder = (name: string): number => {
+	const index = sectionConfig.findIndex((section) => section.value === name);
+	return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+};
+const categoryItems = [category, ...(categoryExtras ?? [])]
+	.filter((name): name is string => Boolean(name))
+	.sort((a, b) => sectionOrder(a) - sectionOrder(b));
+
+// 已在分类行展示的分类名/板块标签不再重复出现在标签行
+const tagsWithoutExtras = tags?.filter(
+	(tag) => tag !== category && !categoryExtras?.includes(tag),
+);
 const visibleTags =
-	typeof maxTags === "number" ? tags?.slice(0, maxTags) : tags;
+	typeof maxTags === "number"
+		? tagsWithoutExtras?.slice(0, maxTags)
+		: tagsWithoutExtras;
 ---
 
 <div
@@ -122,14 +142,34 @@ const visibleTags =
           <Icon name="material-symbols:book-2-outline-rounded" class="text-xl" />
         </div>
         <div class="flex flex-row flex-nowrap items-center">
-          <a
-            href={getCategoryUrl(category || "")}
-            aria-label={`View all posts in the ${category || i18n(I18nKey.uncategorized)} category`}
-            class="link-lg transition text-50 text-sm font-medium
-              hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"
-          >
-            {category || i18n(I18nKey.uncategorized)}
-          </a>
+          {categoryItems.length > 0
+            ? categoryItems.map((name, index) => (
+                <>
+                  {index > 0 && (
+                    <span class="meta-divider mx-1.5 text-(--meta-divider) text-sm">/</span>
+                  )}
+                  <a
+                    href={name === category ? getCategoryUrl(name) : getTagUrl(name)}
+                    aria-label={name === category
+                      ? `View all posts in the ${name} category`
+                      : `View all posts with the ${name} tag`}
+                    class="link-lg transition text-50 text-sm font-medium
+                      hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"
+                  >
+                    {name}
+                  </a>
+                </>
+              ))
+            : (
+                <a
+                  href={getCategoryUrl("")}
+                  aria-label={`View all posts in the ${i18n(I18nKey.uncategorized)} category`}
+                  class="link-lg transition text-50 text-sm font-medium
+                    hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"
+                >
+                  {i18n(I18nKey.uncategorized)}
+                </a>
+              )}
         </div>
       </div>
     )

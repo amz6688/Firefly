@@ -36,10 +36,10 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	 * ],
 	 */
 	src: {
-		// 桌面背景图片，使用已本地化的 K5游戏库首页横幅
-		desktop: "/assets/images/k5/bg.jpg",
+		// 桌面背景图片
+		desktop: "/assets/images/game/bg.jpg",
 		// 移动背景图片
-		mobile: "/assets/images/k5/bg.jpg",
+		mobile: "/assets/images/game/bg.jpg",
 		// 背景视频播放地址（当前未启用视频背景）
 		// playerUrl: "/assets/videos/firefly.mp4",
 	},

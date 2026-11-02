@@ -31,6 +31,7 @@ import SharePoster from "@/components/misc/SharePoster.svelte";
 import { coverImageConfig } from "@/config/coverImageConfig";
 import { licenseConfig } from "@/config/licenseConfig";
 import { profileConfig } from "@/config/profileConfig";
+import { sectionConfig } from "@/config/sectionConfig";
 import { siteConfig } from "@/config/siteConfig";
 import { sponsorConfig } from "@/config/sponsorConfig";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
@@ -77,6 +78,11 @@ const bannerPostMeta = {
 	words: remarkPluginFrontmatter.words,
 	minutes: remarkPluginFrontmatter.minutes,
 };
+
+// 与分类同行的板块标签（如「必玩榜」「手柄专区」）：文章标签中属于板块筛选标签的部分
+const sectionTagExtras = (entry.data.tags ?? []).filter((tag) =>
+	sectionConfig.some((section) => section.kind === "tag" && section.value === tag),
+);
 
 // 处理随机图：如果image为"api"，则从配置的API获取随机图
 const processedImage = processCoverImageSync(entry.data.image, entry.id);
@@ -300,6 +306,7 @@ const seriesData = await getSeriesPosts(entry);
                 published={entry.data.published}
                 updated={entry.data.updated}
                 category={entry.data.category || undefined}
+                categoryExtras={sectionTagExtras}
                 tags={entry.data.tags}
                 id={entry.id}
               />
@@ -389,6 +396,7 @@ const seriesData = await getSeriesPosts(entry);
               updated={entry.data.updated}
               tags={entry.data.tags}
               category={entry.data.category || undefined}
+              categoryExtras={sectionTagExtras}
               id={entry.id}
             />
             {

@@ -2,10 +2,10 @@
 title: "《米塔》v1.0，Steam好评如潮，好评率高达98%的病娇3D心理恐怖第一人称恋爱冒险游戏"
 published: 2026-11-01
 description: "《米塔》是一款融合恋爱与心理恐怖要素的3D第一人称冒险游戏，Steam好评率高达98%，本次为安卓移植版本。"
-tags: [必玩榜, 恐怖, 第一人称, 恋爱冒险, 中文, 高画质]
+tags: [必玩榜, Steam移植, 恐怖, 第一人称, 恋爱冒险, 中文]
 category: Steam移植
-image: "/assets/images/k5/games/miside/header.jpg"
-pinned: true
+image: "/assets/images/game/miside/header.jpg"
+views: 0
 ---
 
 ## 游戏信息
@@ -23,17 +23,17 @@ pinned: true
 
 ## 游戏截图
 
-![米塔游戏截图 1](/assets/images/k5/games/miside/shot-1.jpg)
+![米塔游戏截图 1](/assets/images/game/miside/shot-1.jpg)
 
-![米塔游戏截图 2](/assets/images/k5/games/miside/shot-2.jpg)
+![米塔游戏截图 2](/assets/images/game/miside/shot-2.jpg)
 
-![米塔游戏截图 3](/assets/images/k5/games/miside/shot-3.jpg)
+![米塔游戏截图 3](/assets/images/game/miside/shot-3.jpg)
 
-![米塔游戏截图 4](/assets/images/k5/games/miside/shot-4.jpg)
+![米塔游戏截图 4](/assets/images/game/miside/shot-4.jpg)
 
 ## 下载地址
 
-- **夸克网盘**：[点击下载](https://pan.baidu.com/s/1rJAiPnypzASvUfI0jCvClA?pwd=2268)
+- **夸克网盘**：[点击下载](https://pan.quark.cn/s/8c71e0590c5c)
 - **百度网盘**：[点击下载](https://pan.baidu.com/s/1rJAiPnypzASvUfI0jCvClA?pwd=2268)
 
 > 本站所有资源来自网络，仅作为学习研究交流，请于下载24小时内删除，严禁商用。

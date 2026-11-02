@@ -68,7 +68,7 @@ export const siteConfig: SiteConfig = {
 	// 主题色
 	themeColor: {
 		// 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-		// K5游戏库主色为橙红色 #FF5722，对应色相约 14
+		// 主题主色为橙红色，对应色相约 14
 		hue: 14,
 		// 默认模式："light" 亮色，"dark" 暗色，"system" 跟随系统
 		defaultMode: "light",
@@ -188,7 +188,7 @@ export const siteConfig: SiteConfig = {
 			// 是否显示标签
 			showTags: true,
 			// 标签数量，设为 0 则不限制
-			tagCount: 3,
+			tagCount: 4,
 			// 是否显示字数
 			showWords: false,
 			// 是否显示阅读时间
@@ -209,7 +209,7 @@ export const siteConfig: SiteConfig = {
 			// 是否开启瀑布流布局，同时有封面图和无封面图的混合文章推荐开启
 			masonry: false,
 			// 网格模式卡片最小宽度(px)，浏览器根据容器宽度自动计算列数
-			// K5游戏库首页为双列卡片，320px 可保证桌面端稳定显示两列
+			// 首页为双列卡片，320px 可保证桌面端稳定显示两列
 			columnWidth: 320,
 			// 网格模式封面是否撑满卡片贴边
 			// true：封面顶到卡片左右和上边缘，只有上面两角是圆角
