@@ -4,7 +4,7 @@ published: 2026-11-01
 description: "《米塔》是一款融合恋爱与心理恐怖要素的3D第一人称冒险游戏，Steam好评率高达98%，本次为安卓移植版本。"
 tags: ["必玩榜", "Steam移植", "恐怖", "第一人称", "恋爱冒险", "中文"]
 category: "Steam移植"
-image: "/assets/images/game/miside/header.jpg"
+image: "/assets/images/game/miside/header-2.jpg"
 ---
 ## 游戏信息
 
