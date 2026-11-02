@@ -551,6 +551,13 @@ html {
     @apply cursor-zoom-in
 }
 
+/* 图片只读：禁止拖拽保存和长按菜单，正常查看与点击放大不受影响 */
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
 ::selection {
     background-color: var(--selection-bg)
 }

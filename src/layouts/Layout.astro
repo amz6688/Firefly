@@ -583,6 +583,20 @@ const ogImageAlt = propsOgImageAlt ?? pageTitle;
 
     <!-- GitHub 卡片客户端实时补全（forks/stars） -->
     <GithubCardManager />
+
+    <!-- 图片只读：禁止右键另存和拖拽下载 -->
+    <script is:inline>
+      (function () {
+        if (window.__imageReadOnlyInit) return;
+        window.__imageReadOnlyInit = true;
+        document.addEventListener("contextmenu", function (event) {
+          if (event.target instanceof HTMLImageElement) event.preventDefault();
+        });
+        document.addEventListener("dragstart", function (event) {
+          if (event.target instanceof HTMLImageElement) event.preventDefault();
+        });
+      })();
+    </script>
   </body>
 </html>
 

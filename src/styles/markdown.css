@@ -202,6 +202,55 @@
   tr:nth-child(even) td {
     @apply bg-(--btn-plain-bg-active);
   }
+
+  /* 连续的无说明图片（如游戏截图）拼成无缝图墙：去掉段间距与接缝圆角 */
+  p:has(> img) {
+    line-height: 0;
+    margin-block: 1.25rem !important;
+
+    img {
+      display: block;
+      width: 100%;
+      margin: 0 !important;
+    }
+  }
+
+  /* 相邻两张图片之间彻底去掉上下间距 */
+  p:has(> img):has(+ p:has(> img)) {
+    margin-bottom: 0 !important;
+
+    img {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  p:has(> img) + p:has(> img) {
+    margin-top: 0 !important;
+
+    img {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  /* 显式图墙容器：图片直接作为 flex 子项，绝不产生任何缝隙 */
+  .game-shots {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 !important;
+      border-radius: 0 !important;
+    }
+  }
 }
 
 body.wallpaper-transparent .custom-md {

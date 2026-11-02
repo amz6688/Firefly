@@ -16,9 +16,15 @@ interface Props {
 const { class: className, style, widgetConfig } = Astro.props;
 
 const showTitle = widgetConfig?.showTitle !== false;
+// 没有公告内容且没有链接时，不渲染公告卡片
+const hasContent = (config.content ?? "").trim().length > 0;
+const hasLink = Boolean(
+	config.link && config.link.enable !== false && config.link.text,
+);
 ---
 
 <!-- 组件显示现在由sidebarLayoutConfig统一控制，无需检查config.enable -->
+{hasContent || hasLink ? (
 <WidgetLayout
   name={config.title || i18n(I18nKey.announcement)}
   showTitle={showTitle}
@@ -63,3 +69,4 @@ const showTitle = widgetConfig?.showTitle !== false;
     </div>
   </div>
 </WidgetLayout>
+) : null}

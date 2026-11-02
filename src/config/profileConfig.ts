@@ -28,9 +28,9 @@ export const profileConfig: ProfileConfig = {
 			showName: true,
 		},
 		{
-			name: "在线表格",
-			icon: "material-symbols:table-chart",
-			url: "https://pan.quark.cn/s/42213385090b",
+			name: "归档",
+			icon: "material-symbols:archive",
+			url: "/archive/",
 			showName: true,
 		},
 		{
