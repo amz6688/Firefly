@@ -14,7 +14,6 @@ type PostData = {
 	category: string | null;
 	lang: string;
 	pinned: boolean;
-	views: number;
 	author: string;
 	sourceLink: string;
 	licenseName: string;
@@ -73,7 +72,6 @@ const postsCollection: ContentCollection<PostData> = defineCollection({
 		category: z.string().optional().nullable().default(""),
 		lang: z.string().optional().default(""),
 		pinned: z.boolean().optional().default(false),
-		views: z.number().optional().default(0),
 		author: z.string().optional().default(""),
 		sourceLink: z.string().optional().default(""),
 		licenseName: z.string().optional().default(""),

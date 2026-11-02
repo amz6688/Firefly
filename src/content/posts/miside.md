@@ -5,7 +5,6 @@ description: "《米塔》是一款融合恋爱与心理恐怖要素的3D第一�
 tags: [必玩榜, Steam移植, 恐怖, 第一人称, 恋爱冒险, 中文]
 category: Steam移植
 image: "/assets/images/game/miside/header.jpg"
-views: 0
 ---
 
 ## 游戏信息

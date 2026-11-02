@@ -12,7 +12,7 @@ export const profileConfig: ProfileConfig = {
 	name: "猫猫游戏小站",
 
 	// 个人签名
-	bio: "Steam移植手游 · 安卓单机游戏库，每日更新中。",
+	bio: "Steam移植手游 · 安卓单机游戏库，持续更新中。",
 
 	// 链接配置
 	// 已经预装的图标集：fa7-brands，fa7-regular，fa7-solid，material-symbols，simple-icons

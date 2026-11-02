@@ -60,7 +60,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			// 主页横幅副标题
 			subtitle: [
 				"Steam移植手游",
-				"安卓单机游戏库，每日更新中",
+				"安卓单机游戏库，持续更新中",
 				"安卓掌机游戏",
 				"手机手柄专用游戏库",
 			],

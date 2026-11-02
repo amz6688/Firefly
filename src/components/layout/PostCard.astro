@@ -48,9 +48,6 @@ const sectionTagExtras = (tags ?? []).filter((tag) =>
 	sectionConfig.some((section) => section.kind === "tag" && section.value === tag),
 );
 
-// 浏览量（front-matter 的 views 字段）
-const views = entry.data.views ?? 0;
-
 // 处理随机图：如果image为"api"，则从配置的API获取随机图
 const processedImage = processCoverImageSync(image, entry.id);
 const apiUrls = getApiUrlList(image, entry.id);
@@ -221,13 +218,6 @@ const minutes = remarkPluginFrontmatter.minutes;
             +{hiddenTagCount}
           </span>
         )}
-        <span
-          class="ml-auto inline-flex items-center gap-1 text-xs font-medium text-50"
-          title={`${views} 人看过`}
-        >
-          <Icon name="material-symbols:visibility-outline-rounded" class="w-4 h-4" />
-          <span>{views.toLocaleString()}</span>
-        </span>
       </div>
     )}
 
