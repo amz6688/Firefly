@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>猫猫游戏小站 · 写作后台</title>
+		<link rel="stylesheet" href="/admin.css" />
+	</head>
+	<body>
+		<div id="login" class="login-mask">
+			<form id="login-form" class="login-card">
+				<h1>猫猫游戏小站</h1>
+				<p>写作后台 · 仅限本机访问</p>
+				<input
+					id="password"
+					type="password"
+					placeholder="输入管理密码"
+					autocomplete="current-password"
+					required
+				/>
+				<button type="submit" class="primary">进入后台</button>
+				<p id="login-error" class="login-error" hidden></p>
+				<small>首次运行的密码显示在启动终端，并保存在 scripts/admin/.admin-password</small>
+			</form>
+		</div>
+
+		<div id="app" class="app" hidden>
+			<header class="topbar">
+				<div class="brand">猫猫游戏小站 <span>写作后台</span></div>
+				<div class="top-actions">
+					<a href="http://localhost:4321/" target="_blank" rel="noopener">打开站点预览 ↗</a>
+					<button id="logout" class="ghost">退出</button>
+				</div>
+			</header>
+
+			<main class="layout">
+				<aside class="sidebar">
+					<button id="new-post" class="primary block">＋ 新建文章</button>
+					<input id="search" placeholder="搜索文章标题" />
+					<ul id="post-list" class="post-list"></ul>
+				</aside>
+
+				<section class="editor">
+					<div class="smart-import">
+						<div class="smart-head">
+							<strong>智能识别粘贴</strong>
+							<span>粘贴文章，自动拆分标题 / 描述 / 标签 / 分类 / 正文</span>
+						</div>
+						<textarea
+							id="import-text"
+							placeholder="在这里粘贴文章内容"
+						></textarea>
+						<div id="import-images" class="import-images" hidden></div>
+						<div class="btns">
+							<button id="smart-parse" class="primary small">自动识别并填写</button>
+							<button id="import-found-images" class="ghost small" hidden>
+								下载并替换图片
+							</button>
+							<button id="smart-clear" class="ghost small">清空</button>
+						</div>
+					</div>
+
+					<label class="field">标题
+						<input id="title" placeholder="例如：《米塔》v1.0，Steam好评如潮……" />
+					</label>
+
+					<div class="grid-2">
+						<label class="field">链接别名 slug
+							<input id="slug" placeholder="自动识别游戏英文名" />
+						</label>
+						<label class="field">发布日期
+							<input id="published" type="date" />
+						</label>
+					</div>
+
+					<div class="field">
+						游戏分类（可多选）
+						<div id="category-options" class="category-options"></div>
+					</div>
+
+					<label class="field">描述
+						<textarea id="description" rows="2" placeholder="一句话介绍，用于首页卡片"></textarea>
+					</label>
+
+					<label class="field">标签（用逗号分隔）
+						<input id="tags" list="tag-suggestions" placeholder="必玩榜, Steam移植, 恐怖" />
+					</label>
+					<datalist id="tag-suggestions"></datalist>
+
+					<div class="cover-row">
+						<div class="cover-preview" id="cover-preview">无封面</div>
+						<div class="cover-actions">
+							<label class="field">封面路径
+								<input id="image" placeholder="/assets/images/game/xxx/header.jpg" />
+							</label>
+							<div class="btns">
+								<button id="pick-cover" class="ghost">上传封面</button>
+								<button id="clear-cover" class="ghost">清除封面</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="editor-toolbar">
+						<span>正文（Markdown）</span>
+						<div class="btns">
+							<button id="undo-edit" class="ghost small" title="撤销（Ctrl+Z）" disabled>↶ 撤销</button>
+							<button id="redo-edit" class="ghost small" title="恢复（Ctrl+Y）" disabled>↷ 恢复</button>
+							<button id="detect-links" class="ghost small" title="粘贴网盘分享文本，自动识别并填入正文">识别网盘链接</button>
+						</div>
+					</div>
+					<div id="netdisk-panel" class="netdisk-panel" hidden>
+						<textarea id="netdisk-input" rows="3" spellcheck="false" placeholder="在这里粘贴夸克 / 百度网盘的分享文本，会自动提取链接和提取码"></textarea>
+						<div class="btns">
+							<button id="netdisk-cancel" class="ghost small">取消</button>
+							<button id="netdisk-fill" class="primary small">识别并填入正文</button>
+						</div>
+					</div>
+					<textarea id="body" class="body" spellcheck="false"></textarea>
+
+					<div class="body-images" id="body-images">
+						<div class="body-images-head">
+							<span>正文图片</span>
+							<div class="btns">
+								<button id="pick-shots" class="ghost small">上传图片</button>
+							</div>
+						</div>
+						<div id="body-images-grid" class="body-images-grid">
+							<span class="body-images-empty">暂无图片，点击「上传图片」添加</span>
+						</div>
+						<div class="body-images-hint">
+							支持一次多选、连续多次上传，拖动缩略图可调整顺序
+						</div>
+					</div>
+
+					<div class="editor-footer">
+						<span id="word-count">0 字</span>
+						<div class="btns">
+							<button id="delete-post" class="danger" hidden>删除文章</button>
+							<button id="save-post" class="primary">保存文章</button>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<section class="git-panel">
+				<div class="git-head">
+					<strong>Git 发布</strong>
+					<span id="git-branch" class="muted"></span>
+					<button id="git-refresh" class="ghost small">刷新状态</button>
+				</div>
+				<pre id="git-status" class="git-status">加载中…</pre>
+				<div class="git-actions">
+					<input id="commit-message" placeholder="提交信息（留空自动生成）" />
+					<button id="git-commit" class="ghost">仅提交</button>
+					<button id="git-push" class="primary">提交并推送</button>
+				</div>
+				<pre id="git-output" class="git-output" hidden></pre>
+			</section>
+
+			<div id="toast" class="toast" hidden></div>
+			<div id="image-lightbox" class="image-lightbox" hidden>
+				<img id="image-lightbox-img" alt="图片预览" />
+				<button id="image-lightbox-close" class="ghost">关闭</button>
+			</div>
+			<input type="file" id="file-cover" accept="image/*" hidden />
+			<input type="file" id="file-shots" accept="image/*" multiple hidden />
+		</div>
+
+		<script src="/admin.js"></script>
+	</body>
+</html>

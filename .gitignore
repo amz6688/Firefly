@@ -47,3 +47,6 @@ package/
 .codex*
 .claude
 .mimocode
+
+# 本地写作后台密码
+scripts/admin/.admin-password
