@@ -176,6 +176,9 @@ const state = {
 	importUrls: [],
 	importCoverUrl: "",
 	slugTouched: false,
+	// 本地图片重复上传同名文件时，用版本号强制刷新预览，避免浏览器继续显示旧图
+	mediaVersion: 0,
+	coverDeletePromise: null,
 };
 
 let toastTimer = 0;
@@ -246,10 +249,15 @@ function updateWordCount() {
 	els.wordCount.textContent = `${count} 字`;
 }
 
+function displayImageUrl(src) {
+	// 只给本地图片加版本号，远程图片保持原地址
+	return src.startsWith("/assets/") ? `${src}?v=${state.mediaVersion}` : src;
+}
+
 function updateCoverPreview() {
 	const value = els.image.value.trim();
 	if (value) {
-		els.coverPreview.style.backgroundImage = `url("${value}")`;
+		els.coverPreview.style.backgroundImage = `url("${displayImageUrl(value)}")`;
 		els.coverPreview.classList.add("has-image");
 		els.coverPreview.textContent = "";
 	} else {
@@ -361,7 +369,7 @@ function renderBodyImages() {
 		figure.title = "拖动可调整顺序";
 
 		const image = document.createElement("img");
-		image.src = src;
+		image.src = displayImageUrl(src);
 		image.alt = "正文图片";
 		image.loading = "lazy";
 		image.draggable = false;
@@ -459,13 +467,17 @@ function removeBodyImage(src) {
 	updateWordCount();
 	renderBodyImages();
 	pushBodyHistory();
-	void deleteUploadedImage(src);
+	void deleteUploadedImage(src).then(() => {
+		// 删除完成后再允许同名图片刷新预览
+		state.mediaVersion += 1;
+		renderBodyImages();
+	});
 	toast("图片已从正文和文件中移除");
 }
 
 function openBodyImagePreview(src) {
 	if (!els.imageLightbox) return;
-	els.imageLightboxImg.src = src;
+	els.imageLightboxImg.src = displayImageUrl(src);
 	els.imageLightbox.hidden = false;
 }
 
@@ -769,7 +781,13 @@ async function handleCoverUpload() {
 	if (!file) return;
 	setBusy(true);
 	try {
+		// 等待旧封面删除完成，避免删除请求误删新上传的 header.jpg
+		if (state.coverDeletePromise) {
+			await state.coverDeletePromise;
+			state.coverDeletePromise = null;
+		}
 		const path = await uploadFile(file, "cover");
+		state.mediaVersion += 1;
 		els.image.value = path;
 		updateCoverPreview();
 		toast("封面已上传");
@@ -798,7 +816,10 @@ async function uploadShotFiles(fileList) {
 				toast(error.message, true);
 			}
 		}
-		if (inserted > 0) toast(`已插入 ${inserted} 张图片`);
+		if (inserted > 0) {
+			state.mediaVersion += 1;
+			toast(`已插入 ${inserted} 张图片`);
+		}
 		renderBodyImages();
 	} finally {
 		setBusy(false);
@@ -1654,11 +1675,14 @@ els.body.addEventListener("input", updateWordCount);
 els.image.addEventListener("input", updateCoverPreview);
 els.pickCover.addEventListener("click", () => els.fileCover.click());
 els.fileCover.addEventListener("change", handleCoverUpload);
-els.clearCover.addEventListener("click", () => {
+els.clearCover.addEventListener("click", async () => {
 	const previous = els.image.value.trim();
 	els.image.value = "";
+	state.mediaVersion += 1;
 	updateCoverPreview();
-	void deleteUploadedImage(previous);
+	state.coverDeletePromise = deleteUploadedImage(previous);
+	await state.coverDeletePromise;
+	state.coverDeletePromise = null;
 });
 els.pickShots.addEventListener("click", () => els.fileShots.click());
 els.fileShots.addEventListener("change", handleShotsUpload);
