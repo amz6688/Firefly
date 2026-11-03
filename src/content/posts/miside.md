@@ -27,10 +27,9 @@ image: "/assets/images/game/miside/header-2.jpg"
 ## 游戏图片
 ![](/assets/images/game/miside/shot-1.jpg)
 
-![](/assets/images/game/miside/shot-4.jpg)
+![](/assets/images/game/miside/shot-2.jpg)
 
 ![](/assets/images/game/miside/shot-3.jpg)
 
-![](/assets/images/game/miside/shot-2.jpg)
-
+![](/assets/images/game/miside/shot-4.jpg)
 

@@ -25,13 +25,17 @@ image: "/assets/images/game/tomb-raider/header-2.jpg"
 - **百度网盘**：[点击下载](https://pan.baidu.com/s/1lOqWzPpRKY7-m89Zoj02tA?pwd=2268)
 
 ## 游戏图片
-![](/assets/images/game/tomb-raider/shot-5.jpg)
-
-![](/assets/images/game/tomb-raider/shot-4.jpg)
+![](/assets/images/game/tomb-raider/shot-1.jpg)
 
 ![](/assets/images/game/tomb-raider/shot-2.jpg)
 
-![](/assets/images/game/tomb-raider/shot-3.jpg)
+![](/assets/images/game/tomb-raider/shot-4.jpg)
+
+![](/assets/images/game/tomb-raider/shot-5.jpg)
+
+
+
+
 
 
 
