@@ -48,7 +48,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "Steam移植手游 · 安卓单机游戏库",
 
 	// 站点 URL
-	site_url: "https://acegame.cc.cd",
+	site_url: "https://miuk.top",
 
 	// 站点描述
 	description:
@@ -92,7 +92,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		{
 			// 站点图标，使用猫猫游戏小站 Logo
-			src: "/assets/images/logo.png",
+			src: "/assets/images/logo-icon.png",
 			// 可选，指定主题 'light' | 'dark'
 			// theme: "light",
 			// 可选，图标大小

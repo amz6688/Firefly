@@ -423,7 +423,7 @@ function imageBaseName(value) {
 	);
 }
 
-const WATERMARK_TEXT = "acegame.cc.cd";
+const WATERMARK_TEXT = "miuk.top";
 
 // 在图片右下角加上站点水印；处理失败时保留原图
 async function addWatermark(buffer) {
@@ -432,26 +432,27 @@ async function addWatermark(buffer) {
 		const meta = await image.metadata();
 		if (!meta.width || !meta.height) return buffer;
 
+		// 纯文字水印，字号按短边比例计算（约 8%，比原来更大）
 		const fontSize = Math.max(
-			12,
-			Math.round(Math.min(meta.width, meta.height) * 0.032),
+			22,
+			Math.round(Math.min(meta.width, meta.height) * 0.08),
 		);
 		const textWidth = Math.round(fontSize * 0.62 * WATERMARK_TEXT.length);
-		const paddingX = Math.round(fontSize * 0.55);
-		const paddingY = Math.round(fontSize * 0.32);
+		const paddingX = Math.round(fontSize * 0.15);
 		const width = textWidth + paddingX * 2;
-		const height = fontSize + paddingY * 2;
-		const radius = Math.round(height * 0.2);
+		const height = Math.round(fontSize * 1.3);
 		const svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-			<rect width="100%" height="100%" rx="${radius}" fill="rgba(0,0,0,0.36)" />
-			<text x="${width / 2}" y="${height / 2}" text-anchor="middle" dominant-baseline="central"
+			<text x="${paddingX + 1}" y="${height / 2 + 1}" dominant-baseline="central"
 				font-family="Arial, Helvetica, sans-serif" font-size="${fontSize}" font-weight="600"
-				fill="rgba(255,255,255,0.92)">${WATERMARK_TEXT}</text>
+				fill="rgba(0,0,0,0.35)">${WATERMARK_TEXT}</text>
+			<text x="${paddingX}" y="${height / 2}" dominant-baseline="central"
+				font-family="Arial, Helvetica, sans-serif" font-size="${fontSize}" font-weight="600"
+				fill="rgba(255,255,255,0.62)">${WATERMARK_TEXT}</text>
 		</svg>`;
 
 		const margin = Math.max(
-			8,
-			Math.round(Math.min(meta.width, meta.height) * 0.025),
+			10,
+			Math.round(Math.min(meta.width, meta.height) * 0.02),
 		);
 		return await image
 			.composite([
